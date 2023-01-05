@@ -1,0 +1,25 @@
+{
+  "name": "frontend-project-12",
+  "version": "1.0.0",
+  "description": "Online chat on React",
+  "main": "frontend/src/index.js",
+  "scripts": {
+    "build": "npm run build --prefix frontend",
+    "start": "start-server -s ./frontend/build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd frontend && npm ci"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pershin-daniil/frontend-project-12.git"
+  },
+  "author": "Daniil Pershin <pershin.daniil.e@gmail.com> (https://github.com/pershin-daniil)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pershin-daniil/frontend-project-12/issues"
+  },
+  "homepage": "https://github.com/pershin-daniil/frontend-project-12#readme",
+  "dependencies": {
+    "@hexlet/chat-server": "^1.1.6"
+  }
+}
