@@ -1,12 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './style/index.css';
-import App from './components/App';
+import { io } from 'socket.io-client';
+import './styles/index.scss';
+import initApp from './init.jsx';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const socket = io();
+
+initApp(socket);
