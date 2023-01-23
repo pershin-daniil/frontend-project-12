@@ -13,7 +13,7 @@ const SignupCard = (props) => {
     placeholderPassword,
     placeholderPasswordConfirmation,
     userExists,
-    makedRegistration,
+    makeRegistration,
     registrationFailed,
     inputNameRef,
   } = values;
@@ -62,7 +62,7 @@ const SignupCard = (props) => {
           <InputField values={userValues} />
           <InputField values={passwordValues} />
           <InputField values={passwordConfirmationValues} />
-          <SubmitButton values={{ formik, title: makedRegistration }} />
+          <SubmitButton values={{ formik, title: makeRegistration }} />
         </Form>
       </Card.Body>
     </Card>

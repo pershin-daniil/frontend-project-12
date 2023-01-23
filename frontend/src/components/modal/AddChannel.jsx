@@ -1,11 +1,11 @@
+import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import { toast } from 'react-toastify';
 
+import { toast } from 'react-toastify';
 import useSocket from '../../hooks/socket.js';
 import { closeModal } from '../../slices/modalSlice';
-import { newChannelSchema } from '../../validation/validationSchema';
 import ModalInput from './ModalInput.jsx';
 
 const AddChannel = () => {
@@ -21,7 +21,13 @@ const AddChannel = () => {
     initialValues: {
       channelName: '',
     },
-    validationSchema: newChannelSchema(channels, t('modal.unique'), t('modal.lengthParams')),
+    validationSchema: yup.object().shape({
+      channelName: yup.string().trim()
+        .notOneOf(channels.map((channel) => channel.name), t('modal.unique'))
+        .min(3, t('modal.lengthParams'))
+        .max(20, t('modal.lengthParams'))
+        .required(t('modal.lengthParams')),
+    }),
     onSubmit: (values) => {
       try {
         addNewChannel({ name: values.channelName });

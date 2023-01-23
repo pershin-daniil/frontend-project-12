@@ -1,14 +1,14 @@
 import axios from 'axios';
+import * as yup from 'yup';
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 
+import { toast } from 'react-toastify';
 import useAuth from '../hooks/auth.js';
 import routes from '../routes.js';
-import { loginSchema } from '../validation/validationSchema.js';
 import LoginCard from './LoginCard.jsx';
 
 const LoginPage = () => {
@@ -27,7 +27,10 @@ const LoginPage = () => {
       username: '',
       password: '',
     },
-    validationSchema: loginSchema(t('errors.required')),
+    validationSchema: yup.object().shape({
+      username: yup.string().trim().required(t('errors.required')),
+      password: yup.string().required(t('errors.required')),
+    }),
     onSubmit: async (values) => {
       try {
         const res = await axios.post(routes.loginPath(), {

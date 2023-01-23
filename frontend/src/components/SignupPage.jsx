@@ -1,14 +1,14 @@
 import axios from 'axios';
+import * as yup from 'yup';
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 
+import { toast } from 'react-toastify';
 import useAuth from '../hooks/auth.js';
 import routes from '../routes.js';
-import { registrationSchema } from '../validation/validationSchema.js';
 import SignupCard from './SignupCard.jsx';
 
 const SignupPage = () => {
@@ -28,7 +28,14 @@ const SignupPage = () => {
       password: '',
       passwordConfirmation: '',
     },
-    validationSchema: registrationSchema(t('registrationRules.name'), t('registrationRules.password'), t('registrationRules.passwordEquality'), t('errors.required')),
+    validationSchema: yup.object().shape({
+      username: yup.string().trim()
+        .min(3, t('registrationRules.name'))
+        .max(20, t('registrationRules.name'))
+        .required(t('errors.required')),
+      password: yup.string().trim().min(6, t('registrationRules.password')).required(t('errors.required')),
+      passwordConfirmation: yup.string().trim().oneOf([yup.ref('password')], t('registrationRules.passwordEquality')).required(t('errors.required')),
+    }),
     onSubmit: async (values) => {
       try {
         const res = await axios.post(routes.signupPath(), {
@@ -63,7 +70,7 @@ const SignupPage = () => {
     placeholderPassword: t('placeholders.password'),
     placeholderPasswordConfirmation: t('placeholders.passwordConfirmation'),
     userExists: t('errors.userExist'),
-    makedRegistration: t('makeRegistration'),
+    makeRegistration: t('makeRegistration'),
     registrationFailed,
     inputNameRef,
   };
