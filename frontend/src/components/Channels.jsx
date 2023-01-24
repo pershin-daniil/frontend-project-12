@@ -43,6 +43,7 @@ const Channels = () => {
           onClick={() => dispatch(openModal({ type: 'adding', targetId: null }))}
         >
           <PlusSquare />
+          <span className="visually-hidden">+</span>
         </Button>
       </div>
       <ul className="nav flex-column nav-pills nav-fill px-2">
