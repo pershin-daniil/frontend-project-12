@@ -42,7 +42,7 @@ const Channels = () => {
           className="p-0 text-primary btn-group-vertical"
           onClick={() => dispatch(openModal({ type: 'adding', targetId: null }))}
         >
-          <PlusSquare/>
+          <PlusSquare />
         </Button>
       </div>
       <ul className="nav flex-column nav-pills nav-fill px-2">
